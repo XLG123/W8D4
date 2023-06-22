@@ -161,9 +161,9 @@
 Function.prototype.makeCurry = function(numArgs) {
   const args = []
   
-  function _curried(...args) {
+  function _curried(...nums) {
 
-    args.push(arg);
+    args.push(...nums);
     if (args.length >= numArgs) {
       let sum = args.reduce((acc, curr) => acc + curr, 0);
       return sum;
@@ -172,10 +172,13 @@ Function.prototype.makeCurry = function(numArgs) {
     }
 
   }
+  return _curried;
 };
 
 // const dum = Array.makeCurry(4);
 // console.log(dum(5)(30)(20)(1)); // => 56
 
-dum = [5, 30, 20, 1]
-makeCurry.call(this, dum)
+
+
+const dum = Function.makeCurry(4);
+console.log(dum(5)(30)(20)(1)); // => 56
