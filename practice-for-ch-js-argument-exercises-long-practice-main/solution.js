@@ -24,10 +24,10 @@
 
 // Function.prototype.myBind = function(ctx, ...bindArgs) {
 //   const originalFunc = this;
-//   return function(...callArgs) {
-//     const returnedVal = originalFunc.apply(ctx, bindArgs.concat(callArgs));
-//     return returnedVal;
-//   }
+  // return function(...callArgs) {
+  //   const returnedVal = originalFunc.apply(ctx, bindArgs.concat(callArgs));
+  //   return returnedVal;
+  // }
 // }
 
 // Function.prototype.myBind = function(context) {
@@ -117,30 +117,65 @@
 
 
 
+// Function.prototype.makeCurry = function(numArgs) {
+//   const args = []
+  
+//   function _curried(arg) {
+
+//     args.push(arg);
+//     if (args.length >= numArgs) {
+//       let sum = args.reduce((acc, curr) => acc + curr, 0);
+//       return sum;
+//     } else { 
+//       return _curried;
+//     }
+
+//   }
+
+//   return _curried;
+// };
+
+
+// const dum = Array.makeCurry(4);
+// console.log(dum(5)(30)(20)(1)); // => 56
+
+// Function.prototype.makeCurry = function(numArgs) {
+//   const args = [];
+//   const originalFunc = this;
+  
+//   return function _curried(arg) {
+//     args.push(arg);
+    
+//     if (args.length >= numArgs) {
+//       let sum = originalFunc.apply(null, args).reduce((acc, curr) => acc + curr, 0);
+//       return sum;
+//     } else {
+//       return _curried;
+//     }
+//   }
+// };
+
+// const dum = Array.makeCurry(4);
+// console.log(dum(5)(30)(20)(1)); // => 56
+
 Function.prototype.makeCurry = function(numArgs) {
   const args = []
-  const originalFunc = this;
   
-    function _curried(arg) {
+  function _curried(...args) {
 
     args.push(arg);
     if (args.length >= numArgs) {
       let sum = args.reduce((acc, curr) => acc + curr, 0);
-      return sum
+      return sum;
     } else { 
-      
       return _curried;
     }
 
   }
-
-  return _curried;
 };
 
+// const dum = Array.makeCurry(4);
+// console.log(dum(5)(30)(20)(1)); // => 56
 
-const dum = Array.makeCurry(4);
-console.log(dum(5)(30)(20)(1)); // => 56
-
-
-
-
+dum = [5, 30, 20, 1]
+makeCurry.call(this, dum)
